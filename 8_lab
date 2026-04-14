@@ -1,0 +1,83 @@
+#include <iostream>     
+using namespace std;     
+
+//КЛАС 1 
+class IndustrialRobot {   // оголошення класу
+public:                   // відкритий доступ
+
+    //  КОНСТРУКТОР (без аргументів)
+    IndustrialRobot() {
+        cout << "Constructor IndustrialRobot\n";
+    }
+
+    //  ДЕСТРУКТОР
+    ~IndustrialRobot() {
+        cout << "Destructor IndustrialRobot\n";
+    }
+
+    //  МЕТОД
+    void moveObject() {
+        cout << "IndustrialRobot moves object\n";
+    }
+};
+
+// КЛАС 2
+class HumanoidRobot {
+public:
+
+    //  КОНСТРУКТОР
+    HumanoidRobot() {
+        cout << "Constructor HumanoidRobot\n";
+    }
+
+    //  ДЕСТРУКТОР
+    ~HumanoidRobot() {
+        cout << "Destructor HumanoidRobot\n";
+    }
+
+    //  МЕТОД
+    void makeConclusions() {
+        cout << "HumanoidRobot makes conclusions\n";
+    }
+};
+
+//ПОХІДНИЙ КЛАС 
+class AIAndroid : public IndustrialRobot, public HumanoidRobot {
+//  множинне успадкування (2 батьківських класи)
+
+public:
+
+    //  КОНСТРУКТОР
+    AIAndroid() {
+        cout << "Constructor AIAndroid\n";
+    }
+
+    //  ДЕСТРУКТОР
+    ~AIAndroid() {
+        cout << "Destructor AIAndroid\n";
+    }
+
+    // ПЕРЕВИЗНАЧЕННЯ МЕТОДУ
+    void moveObject() {
+        cout << "AIAndroid smartly moves objects\n";
+    }
+
+    //  ПЕРЕВИЗНАЧЕННЯ МЕТОДУ
+    void makeConclusions() {
+        cout << "AIAndroid makes intelligent conclusions\n";
+    }
+};
+
+//ГОЛОВНА ФУНКЦІЯ
+int main() {
+
+    // СТВОРЕННЯ ОБ'ЄКТА
+    AIAndroid robot;
+
+    // ВИКЛИК МЕТОДІВ
+    cout << "\nMethods:\n";
+    robot.moveObject();        // виклик перевизначеного методу
+    robot.makeConclusions();   // виклик перевизначеного методу
+
+    return 0;  // кінець програми
+}
