@@ -1,85 +1,145 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
+
 using namespace std;
 
-// 🔹 БАЗОВИЙ КЛАС
-class Workstation {
+//  БАЗОВИЙ КЛАС
+class Mob {
+protected:
+    int hp; // здоров'я моба
+
 public:
-    // 🔹 віртуальний метод
-    virtual bool process(string material) {
-        return true;
+    //  конструктор
+    Mob(int h) {
+        hp = h;
     }
 
-    // 🔹 віртуальний деструктор
-    virtual ~Workstation() {}
+    //  віртуальний метод отримання шкоди
+    virtual int takeDamage(int damage) {
+        hp -= damage;
+
+        if (hp < 0)
+            hp = 0;
+
+        return hp;
+    }
+
+    //  getter
+    int getHp() {
+        return hp;
+    }
+
+    //  віртуальний деструктор
+    virtual ~Mob() {}
 };
 
-// 🔹 ПІЧКА
-class Pichka : public Workstation {
+// =====================================================
+
+//  КЛАС ЗОМБІ
+class Zombie : public Mob {
 public:
-    bool process(string material) override {
-        cout << material << " -> переплавка\n";
-        return true;
+    Zombie() : Mob(20) {}
+
+    int takeDamage(int damage) override {
+        cout << "Zombie: Urrrr...\n";
+
+        // виклик базового методу
+        return Mob::takeDamage(damage);
     }
 };
 
-// 🔹 КОВАДЛО
-class Kovadlo : public Workstation {
+// =====================================================
+
+// 🔹КЛАС СКЕЛЕТ
+class Skeleton : public Mob {
 public:
-    bool process(string material) override {
-        cout << material << " -> кування\n";
-        return true;
+    Skeleton() : Mob(15) {}
+
+    int takeDamage(int damage) override {
+        cout << "Skeleton: Clack!\n";
+
+        return Mob::takeDamage(damage);
     }
 };
 
-// 🔹 АЛХІМІЧНА СТІЙКА
-class Alchemy : public Workstation {
+// =====================================================
+
+// КЛАС КРІПЕР
+class Creeper : public Mob {
 public:
-    bool process(string material) override {
-        if (material == "вугілля") {
-            cout << material << " -> не підходить для зілля\n";
-            return false;
-        }
-        cout << material << " -> вариво зілля\n";
-        return true;
+    Creeper() : Mob(10) {}
+
+    int takeDamage(int damage) override {
+        cout << "Creeper: Ssssss...\n";
+
+        return Mob::takeDamage(damage);
     }
 
+    //  особливий метод
     void explode() {
-        cout << "Алхімічна стійка вибухнула!\n";
+        cout << "BOOM!!!\n";
     }
 };
+
+// =====================================================
+
+//  ФУНКЦІЯ СПАВНУ
+vector<Mob*> spawnMobs() {
+
+    vector<Mob*> mobs;
+
+    for (int i = 0; i < 5; i++) {
+
+        int r = rand() % 3;
+
+        if (r == 0)
+            mobs.push_back(new Zombie());
+
+        else if (r == 1)
+            mobs.push_back(new Skeleton());
+
+        else
+            mobs.push_back(new Creeper());
+    }
+
+    return mobs;
+}
+
+// =====================================================
 
 int main() {
 
-    // 🔹 список станцій
-    vector<Workstation*> stations;
+    srand(time(0));
 
-    stations.push_back(new Pichka());
-    stations.push_back(new Kovadlo());
-    stations.push_back(new Alchemy());
+    //  створення мобів
+    vector<Mob*> mobs = spawnMobs();
 
-    string materials[2] = {"золото", "вугілля"};
+    cout << "=== DAMAGE ===\n";
 
-    // 🔹 обробка матеріалів
-    for (string mat : materials) {
-        cout << "\nМатеріал: " << mat << endl;
+    //  проходимо по масиву
+    for (Mob* m : mobs) {
 
-        for (Workstation* s : stations) {
-            bool result = s->process(mat);
+        int hpLeft = m->takeDamage(7);
 
-            // 🔹 якщо це алхімія і неуспішно → вибух
-            if (!result) {
-                Alchemy* a = dynamic_cast<Alchemy*>(s);
-                if (a) {
-                    a->explode();
-                }
-            }
+        cout << "HP left: " << hpLeft << endl;
+
+        // перевірка чи це Creeper
+        Creeper* c = dynamic_cast<Creeper*>(m);
+
+        // якщо hp < 5 → вибух
+        if (c && c->getHp() < 5) {
+            c->explode();
         }
+
+        cout << "----------------\n";
     }
 
-    // 🔹 очищення пам’яті
-    for (Workstation* s : stations)
-        delete s;
+    //  очищення пам'яті
+    for (Mob* m : mobs) {
+        delete m;
+    }
 
     return 0;
 }
