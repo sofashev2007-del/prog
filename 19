@@ -1,0 +1,86 @@
+// БАТЬКІВСЬКИЙ КЛАС 
+
+class Person {   // КЛАС
+
+    // ПОЛЯ 
+
+    String name;   // поле — ім'я
+    int age;       // поле — вік
+
+    //  КОНСТРУКТОР 
+
+    public Person(String name, int age) {
+
+        this.name = name;
+        // this — посилання на поточний об'єкт
+
+        this.age = age;
+    }
+
+    //  МЕТОД 
+
+    void introduce() {
+
+        System.out.println("My name is " + name);
+        System.out.println("I am " + age + " years old");
+    }
+}
+
+//  ДОЧІРНІЙ КЛАС 
+
+class Student extends Person {
+    // Student наслідує Person
+    // extends — наслідування
+
+    // ДОДАТКОВЕ ПОЛЕ 
+
+    String university;
+
+    //  КОНСТРУКТОР 
+
+    public Student(String name, int age, String university) {
+
+        super(name, age);
+        // super — виклик конструктора батьківського класу
+
+        this.university = university;
+    }
+
+    //ПЕРЕВИЗНАЧЕННЯ МЕТОДУ 
+
+    @Override
+    // перевизначення методу introduce()
+
+    void introduce() {
+
+        System.out.println("My name is " + name);
+        System.out.println("I am " + age + " years old");
+        System.out.println("I study at " + university);
+    }
+}
+
+//  ГОЛОВНИЙ КЛАС 
+
+public class Main {
+
+    // ГОЛОВНИЙ МЕТОД 
+
+    public static void main(String[] args) {
+
+        //  ОБ'ЄКТИ 
+
+        Person p1 = new Person("Oleg", 30);
+        // p1 — ОБ'ЄКТ класу Person
+
+        Student s1 = new Student("Anna", 19, "LNU");
+        // s1 — ОБ'ЄКТ класу Student
+
+        // ВИКЛИК МЕТОДІВ 
+
+        p1.introduce();
+
+        System.out.println();
+
+        s1.introduce();
+    }
+}
