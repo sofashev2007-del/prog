@@ -1,0 +1,158 @@
+package lab18;   // пакет
+
+//  БАТЬКІВСЬКИЙ КЛАС 
+
+class Animal {   // КЛАС
+
+    protected String name;
+    // ПОЛЕ (властивість об'єкта)
+
+    public Animal(String name) {   // КОНСТРУКТОР
+
+        this.name = name;
+        // this — посилання на поточний об'єкт
+    }
+
+    public void makeNoice() {   // МЕТОД
+
+        System.out.println("noice");
+    }
+}
+
+//НАСЛІДУВАННЯ 
+
+class Amphibian extends Animal {
+    // Amphibian — ДОЧІРНІЙ КЛАС
+    // extends — наслідування від Animal
+
+    public Amphibian(String name) {   // КОНСТРУКТОР
+
+        super(name);
+        // super — виклик конструктора батьківського класу
+    }
+
+    @Override
+    // перевизначення методу
+
+    public void makeNoice() {   // МЕТОД
+
+        System.out.println(name + " Amphibian noice");
+    }
+}
+
+class Mammal extends Animal {
+
+    public Mammal(String name) {
+
+        super(name);
+    }
+
+    @Override
+
+    public void makeNoice() {
+
+        System.out.println(name + " Mammal noice");
+    }
+}
+
+class Reptile extends Animal {
+
+    public Reptile(String name) {
+
+        super(name);
+    }
+
+    @Override
+
+    public void makeNoice() {
+
+        System.out.println(name + " Reptile noice");
+    }
+}
+
+//  ДОЧІРНІ КЛАСИ 
+
+class Dog extends Mammal {
+    // Dog наслідує Mammal
+
+    public Dog(String name) {
+
+        super(name);
+    }
+
+    @Override
+
+    public void makeNoice() {
+
+        System.out.println(name + " woof");
+    }
+}
+
+class Cat extends Mammal {
+
+    public Cat(String name) {
+
+        super(name);
+    }
+
+    @Override
+
+    public void makeNoice() {
+
+        System.out.println(name + " meow");
+    }
+}
+
+class Cow extends Mammal {
+
+    public Cow(String name) {
+
+        super(name);
+    }
+
+    @Override
+
+    public void makeNoice() {
+
+        System.out.println(name + " moo");
+    }
+}
+
+//  ГОЛОВНИЙ КЛАС 
+
+public class Main {   // ГОЛОВНИЙ КЛАС
+
+    public static void main(String[] args) {
+        // ГОЛОВНИЙ МЕТОД
+
+        // ОБ'ЄКТИ 
+
+        Animal a1 = new Amphibian("Frog");
+        // a1 — ОБ'ЄКТ
+
+        Animal a2 = new Reptile("Snake");
+        // a2 — ОБ'ЄКТ
+
+        Animal a3 = new Dog("Bobik");
+        // a3 — ОБ'ЄКТ
+
+        Animal a4 = new Cat("Barsik");
+        // a4 — ОБ'ЄКТ
+
+        Animal a5 = new Cow("Myna1");
+        // a5 — ОБ'ЄКТ
+
+        // ВИКЛИК МЕТОДІВ 
+
+        a1.makeNoice();
+        // виклик методу
+
+        a2.makeNoice();
+
+        a3.makeNoice();
+
+        a4.makeNoice();
+
+        a5.makeNoice();
+    }
+}
