@@ -1,0 +1,99 @@
+public class Main {   // КЛАС
+
+    // ПОЛЯ 
+
+    String title;      // поле (змінна об'єкта) — назва гри
+    String platform;   // поле — платформа
+    double rating;     // поле — рейтинг гри
+
+    static int gameCount = 0;
+    // static поле (спільне для всіх об'єктів)
+
+    // КОНСТРУКТОРИ 
+
+    // Конструктор за замовчуванням
+    Main() {
+
+        // ініціалізація полів
+        title = "Unknown";
+        platform = "PC";
+        rating = 0.0;
+
+        gameCount++;
+    }
+
+    // Параметризований конструктор
+    Main(String t, String p, double r) {
+
+        // параметри
+        title = t;
+        platform = p;
+        rating = r;
+
+        gameCount++;
+    }
+
+    // Конструктор копіювання
+    Main(Main other) {
+
+        // копіювання полів іншого об'єкта
+        title = other.title;
+        platform = other.platform;
+        rating = other.rating;
+
+        gameCount++;
+    }
+
+    // МЕТОДИ 
+
+    // метод об'єкта
+    void printInfo() {
+
+        // доступ до полів класу
+        System.out.println("Title: " + title);
+        System.out.println("Platform: " + platform);
+        System.out.println("Rating: " + rating);
+    }
+
+    // static метод
+    static void printGameCount() {
+
+        // доступ до static поля
+        System.out.println("Objects created: " + gameCount);
+    }
+
+    // ГОЛОВНИЙ МЕТОД 
+
+    public static void main(String[] args) {
+
+        //  СТВОРЕННЯ ОБ'ЄКТІВ
+
+        Main g1 = new Main();
+        // g1 — ОБ'ЄКТ
+        // new Main() — створення об'єкта через конструктор
+
+        Main g2 = new Main("Minecraft", "PC", 9.5);
+        // g2 — ОБ'ЄКТ
+
+        Main g3 = new Main(g2);
+        // g3 — ОБ'ЄКТ, створений копіюванням
+
+        //ВИКЛИК МЕТОДІВ
+
+        g1.printInfo();
+        // виклик методу через об'єкт
+
+        System.out.println();
+
+        g2.printInfo();
+
+        System.out.println();
+
+        g3.printInfo();
+
+        System.out.println();
+
+        Main.printGameCount();
+        // виклик static методу через клас
+    }
+}
