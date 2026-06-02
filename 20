@@ -1,0 +1,41 @@
+// Інтерфейс Teach
+interface Teach {
+
+    void teach();
+}
+
+// Інтерфейс Evaluate
+interface Evaluate {
+
+    void evaluate();
+}
+
+// Клас Teacher реалізує два інтерфейси
+class Teacher implements Teach, Evaluate {
+
+    // Реалізація методу teach()
+    @Override
+    public void teach() {
+        System.out.println("Teacher teaches students.");
+    }
+
+    // Реалізація методу evaluate()
+    @Override
+    public void evaluate() {
+        System.out.println("Teacher evaluates students.");
+    }
+}
+
+// Головний клас
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Створення об'єкта
+        Teacher t1 = new Teacher();
+
+        // Виклик методів
+        t1.teach();
+        t1.evaluate();
+    }
+}
