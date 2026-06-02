@@ -1,0 +1,37 @@
+// Зовнішній клас
+class Airplane {
+
+    // Поле класу
+    String airline;
+
+    // Нестатичний внутрішній клас
+    class Pilot {
+
+        // Метод внутрішнього класу
+        void fly() {
+            System.out.println(
+                "Пілот літака авіакомпанії " +
+                airline +
+                " готується до зльоту"
+            );
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Створення об'єкта Airplane
+        Airplane plane = new Airplane();
+
+        // Ініціалізація поля airline
+        plane.airline = "SkyUp";
+
+        // Створення об'єкта внутрішнього класу Pilot
+        Airplane.Pilot pilot = plane.new Pilot();
+
+        // Виклик методу
+        pilot.fly();
+    }
+}
