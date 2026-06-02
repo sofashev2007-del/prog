@@ -1,0 +1,130 @@
+import java.util.ArrayList;
+
+//КЛАС USER
+
+class User {
+
+    String email;
+    String password;
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+}
+
+// КЛАС DATABASEMANAGER 
+
+class DataBaseManager {
+
+    // Умовна база даних
+    static ArrayList<User> Users = new ArrayList<>();
+
+    // Додавання користувача
+    static void AddUser(User user) {
+
+        Users.add(user);
+
+        System.out.println("Користувач " + user.email + " доданий.");
+    }
+
+    // Пошук користувача за email
+    static User GetUser(String email) {
+
+        for (User user : Users) {
+
+            if (user.email.equals(email)) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    // Перевірка існування користувача
+    static boolean UserIsAlreadyExist(String email) {
+
+        return GetUser(email) != null;
+    }
+}
+
+// КЛАС USERLOGINANDREGISTRATION 
+
+class UserLoginAndRegistration {
+
+    // Авторизація
+    static void Login(String email, String password) {
+
+        User user = DataBaseManager.GetUser(email);
+
+        if (user != null && user.password.equals(password)) {
+
+            System.out.println("Користувач авторизований.");
+        }
+        else {
+
+            System.out.println("Невірний email або пароль.");
+        }
+    }
+
+    // Реєстрація
+    static void Register(String email, String password) {
+
+        if (DataBaseManager.UserIsAlreadyExist(email)) {
+
+            System.out.println("Користувач вже існує.");
+            return;
+        }
+
+        User user = new User(email, password);
+
+        DataBaseManager.AddUser(user);
+
+        System.out.println("Реєстрація успішна.");
+    }
+}
+
+// MAIN 
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Реєстрація користувачів
+        UserLoginAndRegistration.Register(
+                "user1@gmail.com",
+                "12345"
+        );
+
+        UserLoginAndRegistration.Register(
+                "user2@gmail.com",
+                "11111"
+        );
+
+        // Спроба повторної реєстрації
+        UserLoginAndRegistration.Register(
+                "user1@gmail.com",
+                "99999"
+        );
+
+        System.out.println();
+
+        // Авторизація
+        UserLoginAndRegistration.Login(
+                "user1@gmail.com",
+                "12345"
+        );
+
+        // Невірний пароль
+        UserLoginAndRegistration.Login(
+                "user1@gmail.com",
+                "00000"
+        );
+
+        // Неіснуючий користувач
+        UserLoginAndRegistration.Login(
+                "test@gmail.com",
+                "12345"
+        );
+    }
+}
