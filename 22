@@ -1,0 +1,41 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Шлях до готового файлу
+        File file = new File("text.txt");
+
+        System.out.print("Введіть текст для дозапису: ");
+        String text = sc.nextLine();
+
+        try {
+
+            // true = режим дозапису
+            FileWriter writer = new FileWriter(file, true);
+
+            writer.write("\n" + text);
+
+            writer.close();
+
+            System.out.println("\nІнформація про файл:");
+            System.out.println("Ім'я: " + file.getName());
+            System.out.println("Абсолютний шлях: " + file.getAbsolutePath());
+            System.out.println("Розмір: " + file.length() + " байт");
+            System.out.println("Можна читати: " + file.canRead());
+            System.out.println("Можна дозаписувати: " + file.canWrite());
+
+        } catch (IOException e) {
+
+            System.out.println("Помилка роботи з файлом!");
+        }
+
+        sc.close();
+    }
+}
